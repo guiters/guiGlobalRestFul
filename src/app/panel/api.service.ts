@@ -16,19 +16,25 @@ export class ApiService {
 
   getListDrivers(): Promise<any> {
     const url = `${this.BASE_URL}/guiconfig_drivers`;
-    const result = this.http.get(url,{headers: this.headers, withCredentials: true}).toPromise();
+    const result = this.http.get(url, {headers: this.headers, withCredentials: true}).toPromise();
     return result;
   }
 
   searchDatabases(): Promise<any> {
     const url = `${this.BASE_URL}/searchdatabases`;
-    const result = this.http.get(url,{headers: this.headers, withCredentials: true}).toPromise();
+    const result = this.http.get(url, {headers: this.headers, withCredentials: true}).toPromise();
     return result;
   }
 
   searchTables(database): Promise<any> {
     const url = `${this.BASE_URL}/searchtables?database=` + database;
-    const result = this.http.get(url,{headers: this.headers, withCredentials: true}).toPromise();
+    const result = this.http.get(url, {headers: this.headers, withCredentials: true}).toPromise();
+    return result;
+  }
+
+  searchColumns(database, table): Promise<any> {
+    const url = `${this.BASE_URL}/searchtablescolumn?database=` + database + '&table=' + table;
+    const result = this.http.get(url, {headers: this.headers, withCredentials: true}).toPromise();
     return result;
   }
 }

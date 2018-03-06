@@ -31,13 +31,22 @@
               <button type="button" (click)="searchdatabase()" class="btn btn-block">Search DataBases</button>
             </div>
             <div class="input-field col s8">
-              <select id="tables" name="tables">
-                <option *ngFor="let option of tables" [value]="option">{{option}}</option>
+              <select id="tables" name="tables" formControlName="tables" #tables>
+                <option *ngFor="let option of table" [value]="option">{{option}}</option>
               </select>
               <label for="tables">Table *if exist</label>
             </div>
             <div class="input-field col s4 center">
               <button type="button" (click)="searchtables(database.value)" class="btn btn-block">Search Tables</button>
+            </div>
+            <div class="input-field col s8">
+              <select id="columns" name="columns">
+                <option *ngFor="let option of column" [value]="option">{{option}}</option>
+              </select>
+              <label for="columns">columns *if exist</label>
+            </div>
+            <div class="input-field col s4 center">
+              <button type="button" (click)="searchcolumns(database.value, tables.value)" class="btn btn-block">Search Columns</button>
             </div>
           </form>
         </div>

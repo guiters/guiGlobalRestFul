@@ -13,10 +13,10 @@ export class NewrouteComponent implements OnInit {
 
   drivers;
   databases = false;
-  tables = false;
+  table = false;
   database;
   item: FormGroup;
-  selectedItem;
+  column = false;
 
   constructor(private api: ApiService) {
   }
@@ -25,13 +25,15 @@ export class NewrouteComponent implements OnInit {
     this.getListDrivers();
     this.startSelectBox('#driver');
     this.item = new FormGroup({
-      database: new FormControl('')
+      database: new FormControl(''),
+      tables: new FormControl('')
     });
-
+    localStorage.removeItem('database');
     this.item.get('database').valueChanges.subscribe(data => console.log(data));
     const bomb = this;
     $('#database').on('change', function () {
       bomb.searchtables($(this).val());
+      localStorage.setItem('database', $(this).val());
     });
   }
 
@@ -50,13 +52,27 @@ export class NewrouteComponent implements OnInit {
   }
 
   searchtables(database) {
-    if (database) {
-      const result = (this.api.searchTables(database));
+    const result = (this.api.searchTables(database));
+    result.then(res => {
+      this.table = res;
+      // console.log(res);
+      this.startSelectBox('#tables');
+      const bomb = this;
+      setTimeout(
+        function () {
+          bomb.searchcolumns($('#database').find('option:first-child').val(), $('#tables').find('option:first-child').val());
+        }, 500);
+    });
+  }
+
+  searchcolumns(database, table) {
+    console.log('D:' + database + ' T:' + table);
+    if (database && table) {
+      const result = (this.api.searchColumns(database, table));
       result.then(res => {
-        this.tables = res;
-        if (this.tables) {
-          this.startSelectBox('#tables');
-        }
+        console.log(res);
+        this.column = res;
+        this.startSelectBox('#columns');
       });
     }
   }
@@ -70,7 +86,7 @@ export class NewrouteComponent implements OnInit {
       setTimeout(
         function () {
           bomb.searchtables($('#database').find('option:first-child').val());
-        }, 300);
+        }, 500);
     });
   }
 
