@@ -1,7 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {PublicRoutes} from './public/public-routing.module';
+import {PanelRoutes} from './panel/panel-routing.module';
 
-const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/',
+    pathMatch: 'full'
+  },
+  ...PublicRoutes,
+  ...PanelRoutes
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

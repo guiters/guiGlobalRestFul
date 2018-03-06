@@ -1,0 +1,56 @@
+<main>
+  <div class="center">
+    <img class="responsive-img" style="width: 250px;" src="/assets/restful.gif"/>
+    <div class="section"></div>
+
+    <h5 class="indigo-text">Register new account</h5>
+    <div class="section"></div>
+
+    <div class="container">
+      <div class="z-depth-1 grey lighten-4 row"
+           style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
+        <form class="login-form" #register="ngForm" (ngSubmit)="onSubmit(register.value)">
+          <div class="row margin">
+            <div *ngIf="name.errors && (name.dirty)" class="alert alert-danger">
+              <div>All values are required</div>
+            </div>
+            <div *ngIf="confirm" class="alert alert-danger">
+              <div>The passwords not match</div>
+            </div>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-social-person-outline prefix"></i>
+              <input id="user" name="user" type="text" required [(ngModel)]="user" #name="ngModel">
+              <label for="user" class="center-align">Username</label>
+            </div>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-action-lock-outline prefix"></i>
+              <input id="pass" name="pass" type="password" (input)="validate(register.value)"  required [(ngModel)]="pass" #name="ngModel">
+              <label for="pass">Password</label>
+            </div>
+          </div>
+          <div class="row margin">
+            <div class="input-field col s12">
+              <i class="mdi-action-lock-outline prefix"></i>
+              <input id="password-again" name="passwordconfirm" (input)="validate(register.value)" required type="password" [(ngModel)]="passwordconfirm"
+                     #name="ngModel">
+              <label for="password-again">Password again</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <button class="btn waves-effect waves-light col s12" [disabled]="!register.valid">Register Now</button>
+            </div>
+            <div class="input-field col s12">
+              <p class="margin center medium-small sign-up">Already have an account? <a routerLink="">Login</a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>

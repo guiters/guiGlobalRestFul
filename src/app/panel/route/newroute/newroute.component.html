@@ -1,0 +1,55 @@
+<div class="section index-banner">
+  <div class="row">
+    <div class="col s12">
+      <h1 class="header center-on-small-only white-text">Routes</h1>
+      <h4 class="light red-text text-lighten-4 center-on-small-only">Here you can create a new route</h4>
+    </div>
+  </div>
+</div>
+<div class="">
+  <div class="row">
+    <div class="col s6">
+      <div class="card ">
+        <div class="card-content ">
+          <span class="card-title">Create New Route</span>
+          <form class="route-form row" [formGroup]="item">
+            <div class="input-field col s12">
+              <select id="driver" name="driver">
+                <option *ngFor="let option of drivers; let i = index" [attr.data-index]="i" value="{{option}}">
+                  {{option}}
+                </option>
+              </select>
+              <label>Selecione um driver</label>
+            </div>
+            <div class="input-field col s8">
+              <select formControlName="database" id="database" name="database" #database >
+                <option *ngFor="let option of databases" [value]="option.Database" [ngValue]="option.Database">{{option.Database}}</option>
+              </select>
+              <label for="database">Database *if exist</label>
+            </div>
+            <div class="input-field col s4">
+              <button type="button" (click)="searchdatabase()" class="btn btn-block">Search DataBases</button>
+            </div>
+            <div class="input-field col s8">
+              <select id="tables" name="tables">
+                <option *ngFor="let option of tables" [value]="option">{{option}}</option>
+              </select>
+              <label for="tables">Table *if exist</label>
+            </div>
+            <div class="input-field col s4 center">
+              <button type="button" (click)="searchtables(database.value)" class="btn btn-block">Search Tables</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col s6">
+      <div class="card ">
+        <div class="card-content ">
+          <span class="card-title">How to create</span>
+          {{database}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
