@@ -3,16 +3,33 @@
     <div class="col s12">
       <h1 class="header center-on-small-only white-text">Routes</h1>
       <h4 class="light red-text text-lighten-4 center-on-small-only">Here you can create a new route</h4>
+      <h5 class="light red-text text-lighten-4 center-on-small-only">To how create and how this works visit the page of
+        wiki</h5>
     </div>
   </div>
 </div>
 <div class="">
   <div class="row">
-    <div class="col s6">
+    <div class="col s8 offset-s2">
       <div class="card ">
         <div class="card-content ">
           <span class="card-title">Create New Route</span>
           <form class="route-form row" [formGroup]="item">
+            <div class="col s12 center">
+              <h5>Selecione os tipos de requests validas para essa api</h5>
+              <button type="button" [ngClass]="{ '': request['get'], 'disabled': !request['get']  }"
+                      (click)="active('get')" class="waves-effect waves-light btn">GET
+              </button>
+              <button type="button" [ngClass]="{ '': request['post'], 'disabled': !request['post']  }"
+                      (click)="active('post')" class="waves-effect waves-light btn">POST
+              </button>
+              <button type="button" [ngClass]="{ '': request['put'], 'disabled': !request['put']  }"
+                      (click)="active('put')" class="waves-effect waves-light btn">PUT
+              </button>
+              <button type="button" [ngClass]="{ '': request['delete'], 'disabled': !request['delete']  }"
+                      (click)="active('delete')" class="waves-effect waves-light btn">DELETE
+              </button>
+            </div>
             <div class="input-field col s12">
               <select id="driver" name="driver">
                 <option *ngFor="let option of drivers; let i = index" [attr.data-index]="i" value="{{option}}">
@@ -22,8 +39,10 @@
               <label>Selecione um driver</label>
             </div>
             <div class="input-field col s8">
-              <select formControlName="database" id="database" name="database" #database >
-                <option *ngFor="let option of databases" [value]="option.Database" [ngValue]="option.Database">{{option.Database}}</option>
+              <select formControlName="database" id="database" name="database" #database>
+                <option *ngFor="let option of databases" [value]="option.Database" [ngValue]="option.Database">
+                  {{option.Database}}
+                </option>
               </select>
               <label for="database">Database *if exist</label>
             </div>
@@ -37,26 +56,22 @@
               <label for="tables">Table *if exist</label>
             </div>
             <div class="input-field col s4 center">
-              <button type="button" (click)="searchtables(database.value)" class="btn btn-block">Search Tables</button>
+              <button [disabled]="!blocktable" type="button" (click)="searchtables(database.value)"
+                      class="btn btn-block">Search Tables
+              </button>
             </div>
             <div class="input-field col s8">
-              <select id="columns" name="columns">
+              <select id="columns" name="columns" multiple>
                 <option *ngFor="let option of column" [value]="option">{{option}}</option>
               </select>
               <label for="columns">columns *if exist</label>
             </div>
             <div class="input-field col s4 center">
-              <button type="button" (click)="searchcolumns(database.value, tables.value)" class="btn btn-block">Search Columns</button>
+              <button [disabled]="!blockcolumns" type="button" (click)="searchcolumns(database.value, tables.value)"
+                      class="btn btn-block">Search Columns
+              </button>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
-    <div class="col s6">
-      <div class="card ">
-        <div class="card-content ">
-          <span class="card-title">How to create</span>
-          {{database}}
         </div>
       </div>
     </div>
